@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <span id="typewriter-title"></span>
+    </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 40%, #6a82fb 80%, #fc5c7d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 340px;
+            /* Add a beautiful gradient background */
+            background: linear-gradient(135deg, #ffffff 60%, #e3e9ff 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            /* Optional: add a subtle border */
+            border: 1.5px solid #e0e7ff;
+        }
+
+        .card-inner {
+            padding: 20px;
+        }
+
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 15px;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-tag {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background: #3949ab;
+            color: white;
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .profile-location {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .edu-item {
+            background: linear-gradient(120deg, #f7f7fa 60%, #e3f0ff 100%);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(106, 130, 251, 0.07);
+            /* Animation */
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            animation: boxFadeIn 0.7s cubic-bezier(.4, 1.7, .7, 1) forwards;
+        }
+
+        .edu-item:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .edu-item:nth-child(2) {
+            animation-delay: 0.35s;
+        }
+
+        .edu-item:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes boxFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .edu-school {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .edu-program {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 2px;
+        }
+
+        .edu-location {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0 10px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+            transition: transform 0.3s ease;
+        }
+
+        .social-icon:active {
+            transform: scale(0.95);
+        }
+
+        .icon-whatsapp {
+            background-color: #25D366;
+        }
+
+        .icon-twitter {
+            background-color: #000000;
+        }
+
+        .icon-facebook {
+            background-color: #1877F2;
+        }
+
+        .icon-instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        .icon-email {
+            background-color: #EA4335;
+        }
+
+        .card-tabs {
+            display: flex;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: #3949ab;
+            font-weight: 600;
+            border-bottom: 2px solid #3949ab;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 15px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .location-item {
+            background: linear-gradient(120deg, #f7f7fa 60%, #e3f0ff 100%);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(106, 130, 251, 0.07);
+            /* Animation */
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            animation: boxFadeIn 0.7s cubic-bezier(.4, 1.7, .7, 1) forwards;
+        }
+
+        .location-item:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .location-item:nth-child(2) {
+            animation-delay: 0.35s;
+        }
+
+        .location-item:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes boxFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .location-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .location-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+        }
+
+        .location-detail svg {
+            flex-shrink: 0;
+        }
+
+        /* 3D effects for card */
+        .card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-img-container,
+        .social-links {
+            transition: transform 0.3s ease;
+        }
+
+        #leaf-container {
+            position: fixed;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            opacity: 0.8;
+            will-change: transform;
+            pointer-events: none;
+        }
+
+        #star-container {
+            position: fixed;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #fff, #6a82fb, #fc5c7d, #00ffe7);
+            box-shadow: 0 0 8px 2px #fff, 0 0 16px 4px #6a82fb;
+            opacity: 0.8;
+            will-change: transform, opacity;
+            animation: twinkle 1.2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .card-inner .animate-in {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeSlideIn 0.7s cubic-bezier(.4, 1.7, .7, 1) forwards;
+        }
+
+        @keyframes fadeSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 1ch;
+            color: #3949ab;
+            animation: blink 1s steps(1) infinite;
+            font-weight: bold;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="leaf-container"></div>
+    <div id="star-container"></div>
+    <div class="card" id="card">
+        <div class="card-inner">
+            <div class="profile-header animate-in">
+                <div class="profile-img-container" id="profile-img-container">
+                    <img src="https://public.youware.com/users-website-assets/prod/64a1a72c-92cb-47e1-8f8f-7e54c0be7603/53e52a513c884d5a8f9293c9f1045a2d.jpg"
+                        alt="Rakibul Islam Rabbi" class="profile-img">
+                    <span class="profile-tag">Student</span>
+                </div>
+                <h1 class="profile-name"><span id="typewriter-title"></span></h1>
+                <p class="profile-location"><span id="typewriter-subtitle"></span></p>
+            </div>
+            <div class="card-tabs animate-in">
+                <div class="tab active" data-tab="education">Education</div>
+                <div class="tab" data-tab="location">Location</div>
+            </div>
+            <div class="tab-content active animate-in" id="education-tab">
+                <div class="edu-item">
+                    <p class="edu-school">Ananda Mohan University College</p>
+                    <p class="edu-program">Social Work (2019–Present)</p>
+                    <p class="edu-location">Mymensingh</p>
+                </div>
+
+                <div class="edu-item">
+                    <p class="edu-school">Shahid Syed Nazrul Islam College</p>
+                    <p class="edu-program">HSC (Humanities), Class of 2019</p>
+                    <p class="edu-location">Mymensingh</p>
+                </div>
+            </div>
+
+            <!-- Location Tab -->
+            <div class="tab-content animate-in" id="location-tab">
+                <div class="location-item">
+                    <h3 class="location-title">Current City</h3>
+                    <div class="location-detail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+                            stroke="#3949ab">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span>Jamalpur, Dhaka, Bangladesh</span>
+                    </div>
+                </div>
+
+                <div class="location-item">
+                    <h3 class="location-title">Hometown</h3>
+                    <div class="location-detail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+                            stroke="#3949ab">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        <span>Mymensingh, Dhaka, Bangladesh</span>
+                    </div>
+                </div>
+
+                <div class="location-item">
+                    <h3 class="location-title">Contact</h3>
+                    <div class="location-detail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+                            stroke="#25D366">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        <span>+8801795-708899</span>
+                    </div>
+                    <div class="location-detail" style="margin-top: 8px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+                            stroke="#EA4335">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <span style="font-size: 14px;">rakibulislamrabbi80@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-links animate-in" id="social-links">
+                <a href="https://wa.me/8801795708899" class="social-icon icon-whatsapp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                    </svg>
+                </a>
+                <a href="https://x.com/TheRabbi_160623" class="social-icon icon-twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/share/16YCAFG2L6/" class="social-icon icon-facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M9.101 23.691v-8.662H6.578v-3.324h2.523v-2.435c0-2.736 1.679-4.215 4.125-4.215 1.148 0 2.159.086 2.449.124v2.821h-1.677c-1.326 0-1.579.629-1.579 1.553v2.036h3.16l-.412 3.324h-2.748v8.662h-3.318z" />
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/the_rabbi_160623" class="social-icon icon-instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                </a>
+                <a href="mailto:rakibulislamrabbi80@gmail.com" class="social-icon icon-email">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    // Show corresponding content
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+
+            // 3D effects for mobile
+            const card = document.getElementById('card');
+            const profileImg = document.getElementById('profile-img-container');
+            const socialLinks = document.getElementById('social-links');
+
+            // Device orientation for 3D effect
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', function (e) {
+                    if (!e.beta || !e.gamma) return;
+
+                    // Limit tilt effect (maximum 8 degrees)
+                    const tiltY = Math.max(Math.min((e.beta - 45) * 0.25, 8), -8);
+                    const tiltX = Math.max(Math.min(e.gamma * 0.25, 8), -8);
+
+                    // Apply 3D transform to the card
+                    card.style.transform = `perspective(1000px) rotateX(${tiltY}deg) rotateY(${-tiltX}deg)`;
+
+                    // Apply subtle parallax to elements
+                    profileImg.style.transform = `translateZ(20px) translate(${tiltX * 2}px, ${tiltY * 2}px)`;
+                    socialLinks.style.transform = `translateZ(10px) translate(${-tiltX}px, ${-tiltY}px)`;
+
+                    // Dynamic shadow based on tilt
+                    card.style.boxShadow = `
+                        ${-tiltX * 0.5}px ${-tiltY * 0.5}px 10px rgba(0,0,0,0.1),
+                        ${tiltX * 0.5}px ${tiltY * 0.5}px 15px rgba(0,0,0,0.1),
+                        0 10px 20px rgba(0,0,0,0.2)
+                    `;
+                });
+            }
+
+            // Touch-based parallax for mobile
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            card.addEventListener('touchstart', function (e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            });
+
+            card.addEventListener('touchmove', function (e) {
+                if (!touchStartX || !touchStartY) return;
+
+                const touchX = e.touches[0].clientX;
+                const touchY = e.touches[0].clientY;
+
+                const deltaX = (touchX - touchStartX) / 20;
+                const deltaY = (touchY - touchStartY) / 20;
+
+                // Parallax effect for elements
+                profileImg.style.transform = `translate(${deltaX * 2}px, ${deltaY * 2}px)`;
+                socialLinks.style.transform = `translate(${-deltaX}px, ${-deltaY}px)`;
+            });
+
+            card.addEventListener('touchend', function () {
+                // Reset elements with smooth transition
+                profileImg.style.transition = 'transform 0.5s ease';
+                socialLinks.style.transition = 'transform 0.5s ease';
+
+                profileImg.style.transform = '';
+                socialLinks.style.transform = '';
+
+                // Reset touch tracking
+                touchStartX = 0;
+                touchStartY = 0;
+
+                // Remove transition after reset
+                setTimeout(() => {
+                    profileImg.style.transition = 'transform 0.1s ease';
+                    socialLinks.style.transition = 'transform 0.1s ease';
+                }, 500);
+            });
+
+            // Animate text like PowerPoint
+            const animatedEls = document.querySelectorAll('.card-inner .animate-in');
+            animatedEls.forEach((el, i) => {
+                el.style.animationDelay = (i * 0.18 + 0.2) + 's';
+            });
+
+            // Typewriter for title and subtitle
+            const titleText = "Rakibul Islam Rabbi";
+            const subtitleText = "Jamalpur, Dhaka, Bangladesh";
+            const titleEl = document.getElementById('typewriter-title');
+            const subtitleEl = document.getElementById('typewriter-subtitle');
+            if (titleEl && subtitleEl) {
+                typeWriterEffect(titleEl, titleText, 80, function () {
+                    typeWriterEffect(subtitleEl, subtitleText, 60);
+                });
+            }
+        });
+
+        // Typewriter Effect for Title and Subtitle
+        function typeWriterEffect(element, text, delay = 80, callback) {
+            let i = 0;
+            function type() {
+                element.innerHTML = text.substring(0, i) + '<span class="typewriter-cursor">|</span>';
+                if (i < text.length) {
+                    i++;
+                    setTimeout(type, delay);
+                } else {
+                    element.innerHTML = text + '<span class="typewriter-cursor">|</span>';
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        // Falling leaf animation
+        const leafSVG = `
+            <svg viewBox="0 0 32 32" fill="none">
+                <path d="M16 2C10 10 2 18 16 30C30 18 22 10 16 2Z" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+            </svg>
+        `;
+        const leafContainer = document.getElementById('leaf-container');
+        const leafCount = 8;
+
+        function randomBetween(a, b) {
+            return a + Math.random() * (b - a);
+        }
+
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            leaf.innerHTML = leafSVG;
+            leaf.style.left = `${randomBetween(0, 100)}vw`;
+            leaf.style.top = `-${randomBetween(20, 60)}px`;
+            leaf.style.transform = `rotate(${randomBetween(-30, 30)}deg)`;
+            leafContainer.appendChild(leaf);
+
+            // Animate
+            const duration = randomBetween(6, 12);
+            const horizontalDrift = randomBetween(-30, 30);
+            const spin = randomBetween(-180, 180);
+
+            leaf.animate([
+                {
+                    transform: `translateY(0) translateX(0) rotate(0deg)`,
+                    opacity: 0.8
+                },
+                {
+                    transform: `translateY(80vh) translateX(${horizontalDrift}px) rotate(${spin}deg)`,
+                    opacity: 0.2
+                }
+            ], {
+                duration: duration * 1000,
+                easing: 'linear'
+            });
+
+            setTimeout(() => {
+                leaf.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(() => {
+            if (document.hasFocus()) createLeaf();
+        }, 1200);
+
+        // Initial leaves
+        for (let i = 0; i < leafCount; i++) {
+            setTimeout(createLeaf, i * 700);
+        }
+
+        // Twinkling falling stars
+        const starContainer = document.getElementById('star-container');
+        const starColors = [
+            'linear-gradient(45deg, #fff, #6a82fb)',
+            'linear-gradient(45deg, #fff, #fc5c7d)',
+            'linear-gradient(45deg, #fff, #00ffe7)',
+            'linear-gradient(45deg, #fff, #f7971e, #ffd200)'
+        ];
+
+        function createStar() {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${randomBetween(0, 100)}vw`;
+            star.style.top = `-${randomBetween(2, 10)}px`;
+            star.style.width = `${randomBetween(1.5, 3)}px`;
+            star.style.height = star.style.width;
+            star.style.background = starColors[Math.floor(Math.random() * starColors.length)];
+            star.style.opacity = randomBetween(0.7, 1);
+
+            starContainer.appendChild(star);
+
+            // Animate
+            const duration = randomBetween(2.5, 5.5);
+            const horizontalDrift = randomBetween(-40, 40);
+
+            star.animate([
+                {
+                    transform: `translateY(0) translateX(0)`,
+                    opacity: star.style.opacity
+                },
+                {
+                    transform: `translateY(100vh) translateX(${horizontalDrift}px)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration * 1000,
+                easing: 'linear'
+            });
+
+            setTimeout(() => {
+                star.remove();
+            }, duration * 1000);
+        }
+
+        // Create stars at intervals
+        setInterval(() => {
+            if (document.hasFocus()) createStar();
+        }, 400);
+
+        // Initial stars
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createStar, i * 200);
+        }
+    </script>
+    <!-- Code injected by live-server -->
+    <script>
+        // <![CDATA[  <-- For SVG support
+        if ('WebSocket' in window) {
+            (function () {
+                function refreshCSS() {
+                    var sheets = [].slice.call(document.getElementsByTagName("link"));
+                    var head = document.getElementsByTagName("head")[0];
+                    for (var i = 0; i < sheets.length; ++i) {
+                        var elem = sheets[i];
+                        var parent = elem.parentElement || head;
+                        parent.removeChild(elem);
+                        var rel = elem.rel;
+                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                        }
+                        parent.appendChild(elem);
+                    }
+                }
+                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                var address = protocol + window.location.host + window.location.pathname + '/ws';
+                var socket = new WebSocket(address);
+                socket.onmessage = function (msg) {
+                    if (msg.data == 'reload') window.location.reload();
+                    else if (msg.data == 'refreshcss') refreshCSS();
+                };
+                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                    console.log('Live reload enabled.');
+                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                }
+            })();
+        }
+        else {
+            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+        }
+        // ]]>
+    </script>
+</body>
+
+</html>
