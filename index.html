@@ -29,13 +29,11 @@
         .card {
             width: 100%;
             max-width: 340px;
-            /* Add a beautiful gradient background */
             background: linear-gradient(135deg, #ffffff 60%, #e3e9ff 100%);
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
-            /* Optional: add a subtle border */
             border: 1.5px solid #e0e7ff;
         }
 
@@ -108,7 +106,6 @@
             padding: 14px;
             margin-bottom: 12px;
             box-shadow: 0 2px 8px rgba(106, 130, 251, 0.07);
-            /* Animation */
             opacity: 0;
             transform: translateY(30px) scale(0.98);
             animation: boxFadeIn 0.7s cubic-bezier(.4, 1.7, .7, 1) forwards;
@@ -230,7 +227,6 @@
             padding: 14px;
             margin-bottom: 12px;
             box-shadow: 0 2px 8px rgba(106, 130, 251, 0.07);
-            /* Animation */
             opacity: 0;
             transform: translateY(30px) scale(0.98);
             animation: boxFadeIn 0.7s cubic-bezier(.4, 1.7, .7, 1) forwards;
@@ -273,7 +269,6 @@
             flex-shrink: 0;
         }
 
-        /* 3D effects for card */
         .card {
             transform-style: preserve-3d;
             perspective: 1000px;
@@ -358,7 +353,6 @@
         }
 
         @keyframes blink {
-
             0%,
             100% {
                 opacity: 1;
@@ -403,7 +397,6 @@
                 </div>
             </div>
 
-            <!-- Location Tab -->
             <div class="tab-content animate-in" id="location-tab">
                 <div class="location-item">
                     <h3 class="location-title">Current City</h3>
@@ -494,46 +487,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Tab switching functionality
             const tabs = document.querySelectorAll('.tab');
             const tabContents = document.querySelectorAll('.tab-content');
 
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
                     const tabId = tab.getAttribute('data-tab');
-
-                    // Update active tab
                     tabs.forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
-
-                    // Show corresponding content
                     tabContents.forEach(content => content.classList.remove('active'));
                     document.getElementById(`${tabId}-tab`).classList.add('active');
                 });
             });
 
-            // 3D effects for mobile
             const card = document.getElementById('card');
             const profileImg = document.getElementById('profile-img-container');
             const socialLinks = document.getElementById('social-links');
 
-            // Device orientation for 3D effect
             if (window.DeviceOrientationEvent) {
                 window.addEventListener('deviceorientation', function (e) {
                     if (!e.beta || !e.gamma) return;
-
-                    // Limit tilt effect (maximum 8 degrees)
                     const tiltY = Math.max(Math.min((e.beta - 45) * 0.25, 8), -8);
                     const tiltX = Math.max(Math.min(e.gamma * 0.25, 8), -8);
-
-                    // Apply 3D transform to the card
                     card.style.transform = `perspective(1000px) rotateX(${tiltY}deg) rotateY(${-tiltX}deg)`;
-
-                    // Apply subtle parallax to elements
                     profileImg.style.transform = `translateZ(20px) translate(${tiltX * 2}px, ${tiltY * 2}px)`;
                     socialLinks.style.transform = `translateZ(10px) translate(${-tiltX}px, ${-tiltY}px)`;
-
-                    // Dynamic shadow based on tilt
                     card.style.boxShadow = `
                         ${-tiltX * 0.5}px ${-tiltY * 0.5}px 10px rgba(0,0,0,0.1),
                         ${tiltX * 0.5}px ${tiltY * 0.5}px 15px rgba(0,0,0,0.1),
@@ -542,7 +520,6 @@
                 });
             }
 
-            // Touch-based parallax for mobile
             let touchStartX = 0;
             let touchStartY = 0;
 
@@ -553,44 +530,32 @@
 
             card.addEventListener('touchmove', function (e) {
                 if (!touchStartX || !touchStartY) return;
-
                 const touchX = e.touches[0].clientX;
                 const touchY = e.touches[0].clientY;
-
                 const deltaX = (touchX - touchStartX) / 20;
                 const deltaY = (touchY - touchStartY) / 20;
-
-                // Parallax effect for elements
                 profileImg.style.transform = `translate(${deltaX * 2}px, ${deltaY * 2}px)`;
                 socialLinks.style.transform = `translate(${-deltaX}px, ${-deltaY}px)`;
             });
 
             card.addEventListener('touchend', function () {
-                // Reset elements with smooth transition
                 profileImg.style.transition = 'transform 0.5s ease';
                 socialLinks.style.transition = 'transform 0.5s ease';
-
                 profileImg.style.transform = '';
                 socialLinks.style.transform = '';
-
-                // Reset touch tracking
                 touchStartX = 0;
                 touchStartY = 0;
-
-                // Remove transition after reset
                 setTimeout(() => {
                     profileImg.style.transition = 'transform 0.1s ease';
                     socialLinks.style.transition = 'transform 0.1s ease';
                 }, 500);
             });
 
-            // Animate text like PowerPoint
             const animatedEls = document.querySelectorAll('.card-inner .animate-in');
             animatedEls.forEach((el, i) => {
                 el.style.animationDelay = (i * 0.18 + 0.2) + 's';
             });
 
-            // Typewriter for title and subtitle
             const titleText = "Rakibul Islam Rabbi";
             const subtitleText = "Jamalpur, Dhaka, Bangladesh";
             const titleEl = document.getElementById('typewriter-title');
@@ -602,7 +567,6 @@
             }
         });
 
-        // Typewriter Effect for Title and Subtitle
         function typeWriterEffect(element, text, delay = 80, callback) {
             let i = 0;
             function type() {
@@ -618,7 +582,6 @@
             type();
         }
 
-        // Falling leaf animation
         const leafSVG = `
             <svg viewBox="0 0 32 32" fill="none">
                 <path d="M16 2C10 10 2 18 16 30C30 18 22 10 16 2Z" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
@@ -639,12 +602,9 @@
             leaf.style.top = `-${randomBetween(20, 60)}px`;
             leaf.style.transform = `rotate(${randomBetween(-30, 30)}deg)`;
             leafContainer.appendChild(leaf);
-
-            // Animate
             const duration = randomBetween(6, 12);
             const horizontalDrift = randomBetween(-30, 30);
             const spin = randomBetween(-180, 180);
-
             leaf.animate([
                 {
                     transform: `translateY(0) translateX(0) rotate(0deg)`,
@@ -658,7 +618,6 @@
                 duration: duration * 1000,
                 easing: 'linear'
             });
-
             setTimeout(() => {
                 leaf.remove();
             }, duration * 1000);
@@ -668,12 +627,10 @@
             if (document.hasFocus()) createLeaf();
         }, 1200);
 
-        // Initial leaves
         for (let i = 0; i < leafCount; i++) {
             setTimeout(createLeaf, i * 700);
         }
 
-        // Twinkling falling stars
         const starContainer = document.getElementById('star-container');
         const starColors = [
             'linear-gradient(45deg, #fff, #6a82fb)',
@@ -691,13 +648,9 @@
             star.style.height = star.style.width;
             star.style.background = starColors[Math.floor(Math.random() * starColors.length)];
             star.style.opacity = randomBetween(0.7, 1);
-
             starContainer.appendChild(star);
-
-            // Animate
             const duration = randomBetween(2.5, 5.5);
             const horizontalDrift = randomBetween(-40, 40);
-
             star.animate([
                 {
                     transform: `translateY(0) translateX(0)`,
@@ -711,25 +664,20 @@
                 duration: duration * 1000,
                 easing: 'linear'
             });
-
             setTimeout(() => {
                 star.remove();
             }, duration * 1000);
         }
 
-        // Create stars at intervals
         setInterval(() => {
             if (document.hasFocus()) createStar();
         }, 400);
 
-        // Initial stars
         for (let i = 0; i < 10; i++) {
             setTimeout(createStar, i * 200);
         }
     </script>
-    <!-- Code injected by live-server -->
     <script>
-        // <![CDATA[  <-- For SVG support
         if ('WebSocket' in window) {
             (function () {
                 function refreshCSS() {
@@ -763,7 +711,6 @@
         else {
             console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
         }
-        // ]]>
     </script>
 </body>
 
