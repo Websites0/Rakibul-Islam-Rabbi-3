@@ -362,6 +362,18 @@
                 opacity: 0;
             }
         }
+
+        @media (min-width: 500px) {
+            .card {
+                max-width: 400px;
+            }
+        }
+
+        @media (min-width: 800px) {
+            .card {
+                max-width: 450px;
+            }
+        }
     </style>
 </head>
 
@@ -517,6 +529,30 @@
                         ${tiltX * 0.5}px ${tiltY * 0.5}px 15px rgba(0,0,0,0.1),
                         0 10px 20px rgba(0,0,0,0.2)
                     `;
+                });
+            } else {
+                card.addEventListener('mousemove', function (e) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    const tiltX = -(y / (rect.height / 2)) * 8;
+                    const tiltY = (x / (rect.width / 2)) * 8;
+
+                    card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+                    profileImg.style.transform = `translateZ(20px) translate(${tiltY * 1.5}px, ${-tiltX * 1.5}px)`;
+                    socialLinks.style.transform = `translateZ(10px) translate(${-tiltY * 0.75}px, ${tiltX * 0.75}px)`;
+                    card.style.boxShadow = `
+                        ${-tiltY * 0.5}px ${tiltX * 0.5}px 10px rgba(0,0,0,0.1),
+                        ${tiltY * 0.5}px ${-tiltX * 0.5}px 15px rgba(0,0,0,0.1),
+                        0 10px 20px rgba(0,0,0,0.2)
+                    `;
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+                    profileImg.style.transform = 'translateZ(0) translate(0, 0)';
+                    socialLinks.style.transform = 'translateZ(0) translate(0, 0)';
+                    card.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
                 });
             }
 
@@ -675,41 +711,6 @@
 
         for (let i = 0; i < 10; i++) {
             setTimeout(createStar, i * 200);
-        }
-    </script>
-    <script>
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
-                    }
-                }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
         }
     </script>
 </body>
