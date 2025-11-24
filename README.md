@@ -15,6 +15,14 @@ This is a personal portfolio website for Rakibul Islam Rabbi, a student of Socia
 *   CSS3
 *   JavaScript
 
+## Project Structure
+
+```text
+.
+├── index.html
+└── README.md
+```
+
 ## How to Use
 
 To view the website, simply open the `index.html` file in a web browser.
